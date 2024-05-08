@@ -17,12 +17,12 @@ module.exports = async (req, res) => {
 
     response.data.results.forEach(item => {
       const tags = item.values.tags.map(tag => tag.name)
-      console.log(tags)
       feed.item({
         title: item.values.title,
         description: item.values.summary,
         enclosure: {url:item.values.card_image.url},
-        url: item.values.customer_story_link, // assuming 'link' is the URL
+        categories: tags.split(','),
+        url: item.values.link, // assuming 'link' is the URL
         guid: item.id,
         date: item.publishedAt, // assuming 'pubDate' is the publish date
       });
