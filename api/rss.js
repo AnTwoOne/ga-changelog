@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
       const tags = item.values.tags.map(tag => tag.name)
       feed.item({
         title: item.values.title,
-        description: `${item.values.summary}`,
+        description: item.values.summary,
         categories: tags,
         url: item.values.link, // assuming 'link' is the URL
         guid: item.values.link,
