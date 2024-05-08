@@ -1,5 +1,4 @@
-const app = require('../index.js');
-const express = require('express');
+const app = require('../lib/rssGenerator');
 const serverless = require('serverless-http');
 
 module.exports = serverless(app);
