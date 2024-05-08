@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
       feed.item({
         title: item.values.title,
         description: item.values.summary,
-        categories: `${tags[0]}`,
+        categories: tags,
         url: item.values.link, // assuming 'link' is the URL
         guid: item.id,
         date: item.publishedAt, // assuming 'pubDate' is the publish date
