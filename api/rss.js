@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
         custom_elements: [
             {
                 'content:encoded': {
-                    _cdata: `<img src="${item.values.card_image.url}" alt="${item.values.card_image.alt}" height="${item.values.card_image.height}" width="${item.values.card_image.width}">
+                    _cdata: `<img src="${item.values.card_image.url}" alt="${item.values.card_image.alt}" height="${item.values.card_image.height}" width="${item.values.card_image.width}">`
                 }
             }
         ]
