@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
         custom_elements: [
             {
                 'content:encoded': {
-                    _cdata: `<div class="hs-featured-image-wrapper"> <a href="${item.values.link}" title="" class="hs-featured-image-link"> <img src="${item.values.card_image.url}" alt="${item.values.card_image.alt}" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"> </a> </div>`
+                    _cdata: `<div class="hs-featured-image-wrapper"> <a href="${item.values.link}" title="" class="hs-featured-image-link"> <img src="${item.values.card_image.url}" alt="${item.values.card_image.alt}" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"> </a> </div><p>${item.values.summary}</p>`
                 }
             }
         ]
