@@ -16,8 +16,9 @@ module.exports = async (req, res) => {
     });
 
     response.data.results.forEach(item => {
+      const tags = item.values.tags.map(tag => tag.name)
+      console.log(tags)
       feed.item({
-        categories: [...new Set(item.values.tags.map(tag => tag.name))].split(','),
         title: item.values.title,
         description: item.values.summary,
         enclosure: {url:item.values.card_image.url},
