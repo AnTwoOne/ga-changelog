@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
         language: 'en',
         pubDate: new Date().toUTCString(),
         custom_namespaces: {
-            'media': 'http://search.yahoo.com/mrss/'
+            'content': 'http://purl.org/rss/1.0/modules/content/'
         }
     });
 
@@ -23,23 +23,16 @@ module.exports = async (req, res) => {
       feed.item({
         title: item.values.title,
         description: item.values.summary,
-        enclosure: {url:item.values.card_image.url, type: 'image/webp'},
         category: `${tags[0]}`,
         url: item.values.link, // assuming 'link' is the URL
         guid: item.id,
         date: item.publishedAt, // assuming 'pubDate' is the publish date
         custom_elements: [
             {
-                'media:content': {
-                    _attr: {
-                        url: item.values.card_image.url,
-                        type: item.values.card_image.type,
-                        width: item.values.card_image.width,
-                        height: item.values.card_image.height
-                    }
-                },
-                'media:description': {
-                    _cdata: item.values.card_image.alt
+                'content:encoded': {
+                    _cdata: `<div class="hs-featured-image-wrapper">
+                                    <img src="${item.values.card_image.url}" alt="${item.values.card_image.alt}" height="${item.values.card_image.height}" width="${item.values.card_image.width}" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;">
+                             </div>`
                 }
             }
         ]
