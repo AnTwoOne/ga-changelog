@@ -1,16 +1,13 @@
-const express = require('express');
-const serverless = require('serverless-http');
 const axios = require('axios');
-const app = express();
 
-app.get('/feed.json', async (req, res) => {
+module.exports = async (req, res) => {
+  const apiUrl = 'https://api.hubapi.com/cms/v3/hubdb/tables/7589438/rows?portalId=541808';
+
   try {
-    const response = await axios.get('https://api.hubapi.com/cms/v3/hubdb/tables/7589438/rows?portalId=541808');
-    res.json(response.data);
+    const response = await axios.get(apiUrl);
+    res.status(200).json(response.data);
   } catch (error) {
     console.error('Error fetching data:', error);
     res.status(500).json({ error: 'Failed to fetch data' });
   }
-});
-
-module.exports = serverless(app);
+};
