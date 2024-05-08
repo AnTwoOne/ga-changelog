@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
     let feed = new RSS({
         title: 'Customer Stories',
         description: 'GetAccept Customer Stories',
-        feed_url: 'https://ga-changelog.vercel.app/api/rss',
+        feed_url: 'https://ga-changelog.vercel.app/api/rss.xml',
         site_url: 'https://www.getaccept.com/',
         language: 'en',
         pubDate: new Date().toUTCString(),
@@ -24,9 +24,9 @@ module.exports = async (req, res) => {
         title: item.values.title,
         description: item.values.summary,
         categories: tags,
-        url: item.values.link, // assuming 'link' is the URL
+        url: item.values.link,
         guid: item.values.link,
-        date: item.publishedAt, // assuming 'pubDate' is the publish date
+        date: item.updatedAt,
         custom_elements: [
             {
                 'content:encoded': {
