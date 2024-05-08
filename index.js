@@ -1,18 +1,15 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 app.get('/:filterValue/rss.xml', async (req, res) => {
   const { filterValue } = req.params;
-  const encodedFilterValue = encodeURIComponent(filterValue); // Ensure the filter value is URL-safe
+  const encodedFilterValue = encodeURIComponent(filterValue);
   const url = `https://api.hubapi.com/cms/v3/hubdb/tables/7589438/rows?portalId=541808&in_use__contains=${encodedFilterValue}`;
 
   try {
     const response = await axios.get(url);
     const data = response.data.results;
-
-    // Generate RSS XML
     const rss = generateRSS(data, filterValue);
     res.set('Content-Type', 'application/rss+xml');
     res.send(rss);
@@ -47,6 +44,4 @@ function generateRSS(rows, filterValue) {
   `;
 }
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+module.exports = app;
