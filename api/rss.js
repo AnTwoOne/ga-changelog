@@ -23,16 +23,14 @@ module.exports = async (req, res) => {
       feed.item({
         title: item.values.title,
         description: item.values.summary,
-        category: `${tags[0]}`,
+        categories: `${tags[0]}`,
         url: item.values.link, // assuming 'link' is the URL
         guid: item.id,
         date: item.publishedAt, // assuming 'pubDate' is the publish date
         custom_elements: [
             {
                 'content:encoded': {
-                    _cdata: `<div class="hs-featured-image-wrapper">
-                                    <img src="${item.values.card_image.url}" alt="${item.values.card_image.alt}" height="${item.values.card_image.height}" width="${item.values.card_image.width}" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;">
-                             </div>`
+                    _cdata: `<img src="${item.values.card_image.url}" alt="${item.values.card_image.alt}" height="${item.values.card_image.height}" width="${item.values.card_image.width}">
                 }
             }
         ]
