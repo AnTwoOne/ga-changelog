@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
       const tags = item.values.tags.map(tag => tag.name)
       feed.item({
         title: item.values.title,
-        description: `<div class="hs-featured-image-wrapper"> <a href="${item.values.link}" title="" class="hs-featured-image-link"> <img src="${item.values.card_image.url}" alt="${item.values.card_image.alt}" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"> </a> </div>${item.values.summary}`,
+        description: `${item.values.summary}`,
         categories: tags,
         url: item.values.link, // assuming 'link' is the URL
         guid: item.values.link,
