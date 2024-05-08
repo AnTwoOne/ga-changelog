@@ -7,21 +7,23 @@ module.exports = async (req, res) => {
   try {
     const response = await axios.get(apiUrl);
     let feed = new RSS({
-        title: 'Sample RSS Feed',
-        description: 'A sample RSS feed generated from HubSpot API data.',
-        feed_url: 'https://www.yourwebsite.com/rss',
-        site_url: 'https://www.yourwebsite.com',
+        title: 'Customer Stories',
+        description: 'GetAccept Customer Stories',
+        feed_url: 'https://ga-changelog.vercel.app/api/rss',
+        site_url: 'https://www.getaccept.com/',
         language: 'en',
         pubDate: new Date().toUTCString(),
     });
 
     response.data.results.forEach(item => {
       feed.item({
+        categories: [...new Set(item.values.tags.map(tag => tag.name))].split(','),
         title: item.values.title,
-        description: item.values.description,
-        url: item.values.link, // assuming 'link' is the URL
+        description: item.values.summary,
+        enclosure: {url:item.values.card_image.url},
+        url: item.values.customer_story_link, // assuming 'link' is the URL
         guid: item.id,
-        date: item.values.pubDate, // assuming 'pubDate' is the publish date
+        date: item.publishedAt, // assuming 'pubDate' is the publish date
       });
     });
 
