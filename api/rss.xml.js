@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
   const tagFilter = req.query.tags ? encodeURIComponent(req.query.tags) : '';
 
   // Build the API URL with optional tag filtering
-  const apiUrl = `https://api.hubapi.com/cms/v3/hubdb/tables/7589438/rows?portalId=541808${tagFilter ? `&tags__contains="${tagFilter}"` : ''}`;
+  const apiUrl = `https://api.hubapi.com/cms/v3/hubdb/tables/17554709/rows?portalId=541808&language=English${tagFilter ? `&tags__contains="${tagFilter}"` : ''}`;
 
   try {
     const response = await axios.get(apiUrl);
