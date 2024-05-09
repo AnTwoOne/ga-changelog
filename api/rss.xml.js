@@ -39,7 +39,7 @@ module.exports = async (req, res) => {
         custom_elements: [
             {
                 'content:encoded': {
-                    _cdata: `<div style="display: flex; flex-direction: column; gap: 30px;">${media}<p>${item.values.summary}</p></div>`
+                    _cdata: `<div style="display: flex; flex-direction: column; gap: 30px;">${media}<p>${item.values.description}</p></div>`
                 }
             }
         ]
