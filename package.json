@@ -1,16 +1,15 @@
 {
-    "name": "express-vercel-example",
+    "name": "ga-changelog",
     "version": "1.0.0",
-    "main": "api/feed.js",
+    "main": "api/rss.xml.js",
     "license": "ISC",
     "dependencies": {
         "axios": "^0.27.2",
-        "express": "^4.18.1",
         "rss": "^1.2.2",
         "serverless-http": "^3.0.0",
         "vercel": "^34.1.9"
     },
     "scripts": {
-        "start": "node api/feed.js"
+        "start": "node api/rss.xml.js"
     }
 }
