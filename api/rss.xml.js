@@ -2,14 +2,18 @@ const axios = require('axios');
 const RSS = require('rss');
 
 module.exports = async (req, res) => {
-  const apiUrl = 'https://api.hubapi.com/cms/v3/hubdb/tables/7589438/rows?portalId=541808';
+  // Retrieve the tag from the query parameter, if provided
+  const tagFilter = req.query.tags ? encodeURIComponent(req.query.tags) : '';
+
+  // Build the API URL with optional tag filtering
+  const apiUrl = `https://api.hubapi.com/cms/v3/hubdb/tables/7589438/rows?portalId=541808${tagFilter ? `&tags__contains="${tagFilter}"` : ''}`;
 
   try {
     const response = await axios.get(apiUrl);
     let feed = new RSS({
-        title: 'Customer Stories',
+        title: `Customer Stories${tagFilter ? `: ${req.query.tags}` : ''}`,  // Adjust title to indicate filtered content
         description: 'GetAccept Customer Stories',
-        feed_url: 'https://ga-changelog.vercel.app/api/rss.xml',
+        feed_url: `https://ga-changelog.vercel.app/api/rss.xml${tagFilter ? `?tags=${req.query.tags}` : ''}`,
         site_url: 'https://www.getaccept.com/',
         language: 'en',
         pubDate: new Date().toUTCString(),
@@ -19,11 +23,10 @@ module.exports = async (req, res) => {
     });
 
     response.data.results.forEach(item => {
-      const tags = item.values.tags.map(tag => tag.name)
       feed.item({
         title: item.values.title,
         description: item.values.summary,
-        categories: tags,
+        categories: item.values.tags.map(tag => tag.name),
         url: item.values.link,
         guid: item.values.link,
         date: item.updatedAt,
@@ -41,6 +44,6 @@ module.exports = async (req, res) => {
     res.send(feed.xml({ indent: true }));
   } catch (error) {
     console.error('Error fetching or generating RSS:', error);
-    res.status(500).send('Failed to generate RSS feed.');
+    res.status(500). send('Failed to generate RSS feed.');
   }
 };
