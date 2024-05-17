@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
   try {
     const response = await axios.get(apiUrl);
     let feed = new RSS({
-        title: `Customer Stories${tagFilter ? `: ${req.query.tags}` : ''}`,  // Adjust title to indicate filtered content
+        title: `Changelog ${tagFilter ? `: ${req.query.tags}` : ''}`,  // Adjust title to indicate filtered content
         description: 'GetAccept Changelog',
         feed_url: `https://ga-changelog.vercel.app/api/rss.xml${tagFilter ? `?categories=${req.query.tags}` : ''}`,
         site_url: 'https://www.getaccept.com/',
