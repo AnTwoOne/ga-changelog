@@ -1,6 +1,6 @@
 body {
-    background: #00093c;
-    color: #ffffff;
+    background: #202a32;
+    color: #e3d9ff;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,7 +15,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 100px;
-    background: rgba(255, 255, 255, 0.1);
+    background: #0e1a20;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -25,7 +25,7 @@ body {
   }
   
   a {
-    color: #ffffff;
+    color: #e3d9ff;
     text-decoration: none;
     font-weight: 500;
     font-size: 1rem;
@@ -47,8 +47,8 @@ body {
     padding: 10px 20px;
     border-radius: 5px;
     border: 1px solid #573ddc;
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
+    background: #0e1a20;
+    color: #e3d9ff;
     font-weight: 500;
     font-size: 1rem;
   }
@@ -56,7 +56,7 @@ body {
   h2 {
     font-size: 1.2rem;
     font-weight: 500;
-    color: #ffffff;
+    color: #e3d9ff;
     margin: 0;
   }
   
