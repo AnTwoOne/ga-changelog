@@ -3,21 +3,22 @@ const RSS = require('rss');
 
 module.exports = async (req, res) => {
   // Retrieve the tag from the query parameter, if provided
-  const tagFilter = req.query.tags ? encodeURIComponent(req.query.tags) : '';
+  const categoriesFilter = req.query.categories ? encodeURIComponent(req.query.categories) : '';
+  const tagsFilter = req.query.tags ? encodeURIComponent(req.query.tags) : '';
 
-  console.log(tagFilter, req.query)
+  console.log(tagsFilter, categoriesFilter)
 
   // Build the API URL with optional tag filtering
-  const apiUrl = `https://api.hubapi.com/cms/v3/hubdb/tables/18745726/rows?portalId=541808${tagFilter ? `&categories__contains=${tagFilter}` : ''}`;
+  const apiUrl = `https://api.hubapi.com/cms/v3/hubdb/tables/18745726/rows?portalId=541808${categoriesFilter ? `&categories__contains=${categoriesFilter}` : ''}${tagsFilter ? `&tags__contains=${tagsFilter}` : ''}`;
 
   console.log(apiUrl)
 
   try {
     const response = await axios.get(apiUrl);
     let feed = new RSS({
-        title: `Changelog ${tagFilter ? `: ${req.query.tags}` : ''}`,  // Adjust title to indicate filtered content
+        title: `Changelog result ${categoriesFilter ? `: ${req.query.categories}` : ''} ${tagsFilter ? `& : ${req.query.tags}` : ''}`,  // Adjust title to indicate filtered content
         description: 'GetAccept Changelog',
-        feed_url: `https://ga-changelog.vercel.app/api/rss.xml${tagFilter ? `?categories=${req.query.tags}` : ''}`,
+        feed_url: `https://ga-changelog.vercel.app/api/rss.xml`,
         site_url: 'https://www.getaccept.com/',
         language: 'en',
         pubDate: new Date().toUTCString(),
