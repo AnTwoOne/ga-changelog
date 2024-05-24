@@ -5,6 +5,8 @@ module.exports = async (req, res) => {
   // Retrieve the tag from the query parameter, if provided
   const tagFilter = req.query.tags ? encodeURIComponent(req.query.tags) : '';
 
+  console.log(tagFilter, req.query)
+
   // Build the API URL with optional tag filtering
   const apiUrl = `https://api.hubapi.com/cms/v3/hubdb/tables/18745726/rows?portalId=541808${tagFilter ? `&categories__contains=${tagFilter}` : ''}`;
 
