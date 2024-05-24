@@ -6,17 +6,10 @@ module.exports = async (req, res) => {
   const categoriesFilter = req.query.categories ? req.query.categories : '';
   const tagsFilter = req.query.tags ? req.query.tags : '';
 
-  console.log(`Categories Filter: ${categoriesFilter}`);
-  console.log(`Tags Filter: ${tagsFilter}`);
-
-  // Build the API URL with optional tag filtering
-  const apiUrl = `https://api.hubapi.com/cms/v3/hubdb/tables/18745726/rows?portalId=541808${categoriesFilter ? `&categories__contains=${encodeURIComponent(categoriesFilter)}` : ''}${tagsFilter ? `&tags__contains=${encodeURIComponent(tagsFilter)}` : ''}`;
-
-  console.log(`API URL: ${apiUrl}`);
+  const apiUrl = `https://api.hubapi.com/cms/v3/hubdb/tables/18745726/rows?portalId=541808${categoriesFilter ? `&categories__in=${encodeURIComponent(categoriesFilter)}` : ''}${tagsFilter ? `&tags__in=${encodeURIComponent(tagsFilter)}` : ''}`;
 
   try {
     const response = await axios.get(apiUrl);
-    console.log('API response:', response.data);
 
     let feed = new RSS({
       title: `Changelog result${categoriesFilter ? `: ${req.query.categories}` : ''}${tagsFilter ? ` & : ${req.query.tags}` : ''}`,  // Adjust title to indicate filtered content
@@ -33,6 +26,11 @@ module.exports = async (req, res) => {
     response.data.results.forEach(item => {
       let media = "";
       if (item.values.feature_image) {
+        media = `
+          <div class="hs-featured-image-wrapper"> <a href="${item.values.link}" title="" class="hs-featured-image-link"> <img src="${item.values.feature_image.url}" alt="${item.values.feature_image.alt}" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"> </a> </div>
+        `;
+      }
+      if (item.values.video && !item.values.feature_image) {
         media = `
           <div class="hs-featured-image-wrapper"> <a href="${item.values.link}" title="" class="hs-featured-image-link"> <img src="${item.values.feature_image.url}" alt="${item.values.feature_image.alt}" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"> </a> </div>
         `;
